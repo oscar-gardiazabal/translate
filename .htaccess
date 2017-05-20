@@ -1,0 +1,3 @@
+#reset rewrite:
+RewriteEngine Off
+RewriteEngine On
