@@ -2,7 +2,6 @@
 
 //$version = phpversion();
 //echo "php $version <br>";
-
 $whitelist = array(
     '127.0.0.1',
     '::1'
@@ -10,6 +9,8 @@ $whitelist = array(
 if (!in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
     die("ERROR");
 }
+ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+//
 
 require_once ('GoogleTranslate.php');
 
@@ -18,8 +19,20 @@ use \Statickidz\GoogleTranslate;
 $trans = new GoogleTranslate();
 
 $public = "../would-you-rather/";
-$paths = array("~lang");
-$languages = array("it");
+$paths = array(
+    "~lang",
+//    "~modules/tutorial/lang",
+//    "~commons/lang",
+//    "~commons/modules/like/lang",
+//    "~commons/modules/polls/lang",
+//    "~commons/modules/rate/lang",
+//    "~commons/modules/report/lang",
+//    "~commons/modules/tutorial/lang"
+);
+
+require 'languages.php';
+//$languages = array();
+$languages = array("es");
 
 for ($i = 0; $i < count($paths); $i++) {
     $path = $paths[$i];
@@ -39,12 +52,15 @@ for ($i = 0; $i < count($paths); $i++) {
 
     for ($j = 0; $j < count($languages); $j++) {
         $language = $languages[$j];
+        if ("en" == $language) {
+            continue;
+        }
 
         //$translated = array();
         $plain = "";
         foreach ($arr as $key => $value) {
             //$translated[$key] = $trans->translate("en", $language, $value);
-            $plain .= "$value\n";
+            $plain .= str_replace("\n", "<br>", $value) . "\n"; // '\n' NOT ALLOWED!!
         }
 
         $translated = $trans->translate("en", $language, $plain);
@@ -62,8 +78,8 @@ for ($i = 0; $i < count($paths); $i++) {
 
         //echo $js;
 
-        file_put_contents($public . $path . "/" . $language . ".js", $js);
+        file_put_contents($public . $path . "/" . strtolower($language) . ".js", $js);
     }
 }
 
-echo "done";
+echo "<br><br> done";
