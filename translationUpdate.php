@@ -21,9 +21,7 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 //
 
 require_once ('GoogleTranslate.php');
-
 use \Statickidz\GoogleTranslate;
-
 $trans = new GoogleTranslate();
 
 if (!isset($languages)) {
