@@ -1,7 +1,5 @@
 <?php
 
-define('translate', TRUE);
-
 if (!defined('translate')) {
     die('Direct access not permitted');
 }
@@ -22,11 +20,12 @@ if (!in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
 ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 //
 
-require_once ('GoogleTranslate.php');
+require dirname(__FILE__) . '/GoogleTranslate.php';
 
 use \Statickidz\GoogleTranslate;
 
 $trans = new GoogleTranslate();
 
-require 'languages.php';
-//$languages = array();
+if (!isset($languages)) {
+    require dirname(__FILE__) . '/languages.php';
+}

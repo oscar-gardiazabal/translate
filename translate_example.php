@@ -1,6 +1,10 @@
 <?php
 
-$public = "../would-you-rather/";
+define('translate', TRUE);
+
+require 'translation/load.php';
+
+$public = "/";
 $targetFile = "en.js";
 
 $paths = array(

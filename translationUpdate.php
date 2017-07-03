@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('translate')) {
+    die('Direct access not permitted');
+}
+
 for ($i = 0; $i < count($paths); $i++) {
     $path = $paths[$i];
 
@@ -15,6 +19,7 @@ for ($i = 0; $i < count($paths); $i++) {
     $last_line = $line;
     $json = rtrim($json, ','); //remove last wrong commas
     $json .= "}";
+    //echo $json;
 
     $arr = json_decode($json);
     if (!is_object($arr)) {
